@@ -251,23 +251,21 @@
                 <!-- Add Shift -->
                 <div class="bg-white rounded-2xl shadow-xl p-8 fade-in dashboard-card">
                     <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>
                         เพิ่มเวรใหม่
                     </h3>
                     <form id="shiftForm" class="space-y-4">
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">ชื่อเวร</label>
-                                <input type="text" id="shiftName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="กรอกชื่อเวร เช่น เวรเช้า, เวรบ่าย" required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">ตัวย่อเฉพาะ</label>
-                                <input type="text" id="shiftAbbrev" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="กรอกตัวย่อเวร" required>
-                            </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ชื่อเวร</label>
+                            <input type="text" id="shiftName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="กรอกชื่อเวร (เช่น เช้า, บ่าย, ดึก)" required>
                         </div>
-                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition-colors main-button flex items-center justify-center">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ตัวย่อเฉพาะ</label>
+                            <input type="text" id="shiftAbbrev" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" placeholder="กรอกตัวย่อ (เช่น MOR, EVE, NHT)" required>
+                        </div>
+                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 px-4 rounded-lg transition-colors main-button flex items-center justify-center">
                             <span id="shiftSubmitText">เพิ่มเวร</span>
                             <div id="shiftLoading" class="loading ml-2 hidden"></div>
                         </button>
@@ -275,31 +273,21 @@
                     <div id="shiftMessage" class="mt-4 text-center text-sm hidden"></div>
                 </div>
             </div>
-            <!-- Current Data Display -->
-            <div class="mt-8 grid lg:grid-cols-2 gap-8">
+            <!-- Existing Pharmacists & Shifts List -->
+            <div class="grid lg:grid-cols-2 gap-8 mt-8">
                 <!-- Pharmacists List -->
-                <div class="bg-white rounded-2xl shadow-xl p-8 dashboard-card">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656-.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                        รายชื่อเภสัชกร
-                    </h3>
-                    <div id="pharmacistsList" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                <div class="bg-white rounded-2xl shadow-xl p-6 fade-in dashboard-card">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">รายชื่อเภสัชกร</h3>
+                    <div id="pharmacistsList"></div>
                 </div>
                 <!-- Shifts List -->
-                <div class="bg-white rounded-2xl shadow-xl p-8 dashboard-card">
-                    <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        รายการเวร
-                    </h3>
-                    <div id="shiftsList" class="space-y-2 max-h-60 overflow-y-auto"></div>
+                <div class="bg-white rounded-2xl shadow-xl p-6 fade-in dashboard-card">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">รายชื่อเวร</h3>
+                    <div id="shiftsList"></div>
                 </div>
             </div>
         </div>
-        <!-- My Data Tab -->
+        <!-- My Data Tab (Edit My Info) -->
         <div id="mydataTab" class="tab-content hidden max-w-6xl mx-auto p-6">
             <div class="bg-white rounded-2xl shadow-xl p-8 fade-in dashboard-card">
                 <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
@@ -322,7 +310,7 @@
                     </div>
                     <button type="button" id="deleteSelectedBtn" class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">ลบรายการที่เลือก</button>
                 </div>
-                <div id="myDataResults" class="hidden">
+                <div id="myScheduleTable" class="hidden">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">ตารางเวรของฉัน</h3>
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white border border-gray-200 rounded-lg">
@@ -346,7 +334,7 @@
     <script>
         // ====== CONFIG ======
         const CONFIG = {
-            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxxBUL40G2sBcrmqHoAYzf2f7pjKP8N7Jc2IdUjsmtf9O9DHBxJpwts5i7r4Cp7Phrp/exec',  // *เปลี่ยน URL เป็นของคุณ*
+            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzelakl6CeFm9gQ5X0GVADSq1_myTiE-mi5lD2i6an8JnFCZa5QDPEodutobPWkvGSK/exec',  // *เปลี่ยน URL เป็นของคุณ*
             SHEET_ID: '1Z2mKuXamqcHIM8f3bWInq6Q8upJz9EM-4ienVBWhT1s'  // *เปลี่ยน Sheet ID เป็นของคุณ*
         };
         // =====================
@@ -447,7 +435,7 @@
                     <h4 class="text-lg font-semibold text-gray-800">ตารางเวรที่ ${scheduleRowCounter}</h4>
                     ${scheduleRowCounter > 1 ? `<button type="button" onclick="removeScheduleRow(${scheduleRowCounter})" class="text-red-500 hover:text-red-700 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a 1 1 0 00-1 1v3M4 7h16"></path>
                         </svg>
                     </button>` : ''}
                 </div>
@@ -540,26 +528,14 @@
             }
             pharmacists.forEach((p, index) => {
                 const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
+                div.className = 'flex items-center justify-between p-3 bg-white border-b border-gray-200';
                 div.innerHTML = `
-                    <span class="text-gray-800">${index + 1}. ${p.name}</span>
-                    <span class="text-xs text-gray-500">เภสัชกร</span>
+                    <div>
+                        <p class="text-sm font-medium text-gray-800">${p.name}</p>
+                        <p class="text-sm text-gray-500">${p.userId}</p>
+                    </div>
                 `;
                 container.appendChild(div);
-            });
-        }
-        function updateShiftSelects() {
-            const selects = document.querySelectorAll('select[name="shift"]');
-            selects.forEach(select => {
-                const currentValue = select.value;
-                select.innerHTML = '<option value="">-- เลือกเวร --</option>';
-                shifts.forEach(shiftObj => {
-                    const option = document.createElement('option');
-                    option.value = shiftObj.name;
-                    option.textContent = shiftObj.name;
-                    if (shiftObj.name === currentValue) option.selected = true;
-                    select.appendChild(option);
-                });
             });
         }
         function updateShiftsList() {
@@ -569,244 +545,234 @@
                 container.innerHTML = '<p class="text-gray-500 text-center py-4">ยังไม่มีข้อมูลเวร</p>';
                 return;
             }
-            shifts.forEach((shiftObj, index) => {
+            shifts.forEach(s => {
                 const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-3 bg-gray-50 rounded-lg';
-                const abbrevText = shiftObj.abbrev ? ` (${shiftObj.abbrev})` : '';
+                div.className = 'flex items-center justify-between p-3 bg-white border-b border-gray-200';
                 div.innerHTML = `
-                    <span class="text-gray-800">${index + 1}. ${shiftObj.name}${abbrevText}</span>
-                    <span class="text-xs text-gray-500">เวรงาน</span>
+                    <p class="text-sm font-medium text-gray-800">${s.name}</p>
+                    <p class="text-sm text-gray-500">${s.abbrev}</p>
                 `;
                 container.appendChild(div);
             });
         }
-        // ----- บันทึกตารางเวร -----
-        document.getElementById('scheduleForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const pharmacistName = document.getElementById('pharmacistSelect').value;
-            const scheduleRows = document.querySelectorAll('.schedule-row');
-            if (!pharmacistName) {
-                showMessage(document.getElementById('scheduleMessage'), 'กรุณาเลือกเภสัชกร', 'error');
-                return;
-            }
-            if (scheduleRows.length === 0) {
-                showMessage(document.getElementById('scheduleMessage'), 'กรุณาเพิ่มตารางเวรอย่างน้อย 1 แถว', 'error');
-                return;
-            }
-            const scheduleData = [];
-            let hasError = false;
-            scheduleRows.forEach((row, index) => {
-                const workDate = row.querySelector('input[name="workDate"]').value;
-                const shift = row.querySelector('select[name="shift"]').value;
-                if (!workDate || !shift) {
-                    showMessage(document.getElementById('scheduleMessage'), `กรุณากรอกข้อมูลให้ครบถ้วนในแถวที่ ${index + 1}`, 'error');
-                    hasError = true;
-                    return;
-                }
-                scheduleData.push({ workDate, shift });
+        function updateShiftSelects() {
+            const selects = document.querySelectorAll('select[name="shift"]');
+            selects.forEach(select => {
+                select.innerHTML = '<option value="">-- เลือกเวร --</option>';
+                shifts.forEach(s => {
+                    const option = document.createElement('option');
+                    option.value = s.name;
+                    option.textContent = s.name;
+                    select.appendChild(option);
+                });
             });
-            if (hasError) return;
-            const submitText = document.getElementById('scheduleSubmitText');
-            const loading = document.getElementById('scheduleLoading');
-            submitText.textContent = 'กำลังบันทึก...';
-            loading.classList.remove('hidden');
-            try {
-                let totalEntries = 0;
-                for (const schedule of scheduleData) {
-                    const body = {
-                        action: 'addSchedule',
-                        pharmacist: pharmacistName,
-                        date: schedule.workDate,
-                        shift: schedule.shift,
-                        userId: currentUser.userId
-                    };
-                    const response = await fetch(CONFIG.SCRIPT_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify(body)
-                    });
-                    const resJson = await response.json();
-                    if (!response.ok || resJson.error || resJson.success === false) {
-                        throw new Error(resJson.error || resJson.message || 'Network error');
-                    }
-                    totalEntries++;
-                }
-                showMessage(document.getElementById('scheduleMessage'), `บันทึกตารางเวรสำเร็จ! (${totalEntries} รายการ)`, 'success');
-                document.getElementById('pharmacistSelect').value = '';
-                document.getElementById('scheduleRows').innerHTML = '';
-                scheduleRowCounter = 0;
-                addScheduleRow();
-            } catch (error) {
-                console.error('Error submitting schedule:', error);
-                showMessage(document.getElementById('scheduleMessage'), 'เกิดข้อผิดพลาดในการบันทึกข้อมูล', 'error');
-            } finally {
-                submitText.textContent = 'บันทึกตารางเวรทั้งหมด';
-                loading.classList.add('hidden');
-            }
-        });
-        // ----- เพิ่มเภสัชกร -----
+        }
+        // --------- Add Data (Pharmacist, Shift, Schedule) ----------
         document.getElementById('pharmacistForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('pharmacistName').value.trim();
             const userId = document.getElementById('pharmacistUserId').value.trim();
             const password = document.getElementById('pharmacistPassword').value.trim();
-            if (!name || !userId || !password) {
-                showMessage(document.getElementById('pharmacistMessage'), 'กรุณากรอกข้อมูลให้ครบถ้วน', 'error');
-                return;
-            }
             const submitText = document.getElementById('pharmacistSubmitText');
             const loading = document.getElementById('pharmacistLoading');
-            submitText.textContent = 'กำลังเพิ่ม...';
+            submitText.textContent = 'กำลังบันทึก...';
             loading.classList.remove('hidden');
             try {
-                const response = await fetch(CONFIG.SCRIPT_URL, {
+                const resp = await fetch(CONFIG.SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ action: 'addPharmacist', name, userId, password })
                 });
-                const resJson = await response.json();
-                if (!response.ok || resJson.error || resJson.success === false) throw new Error(resJson.error || resJson.message || 'Network error');
+                const j = await resp.json();
+                if (!j.success) throw new Error(j.message || 'เพิ่มเภสัชกรไม่สำเร็จ');
+                showMessage(document.getElementById('pharmacistMessage'), j.message || 'เพิ่มเภสัชกรสำเร็จ', 'success');
                 await loadPharmacists();
-                updatePharmacistSelect();
                 updatePharmacistsList();
-                showMessage(document.getElementById('pharmacistMessage'), resJson.message || 'เพิ่มเภสัชกรสำเร็จ!', 'success');
                 document.getElementById('pharmacistForm').reset();
-            } catch (error) {
-                console.error('Error adding pharmacist:', error);
-                showMessage(document.getElementById('pharmacistMessage'), error.message || 'เกิดข้อผิดพลาดในการเพิ่มข้อมูล', 'error');
+            } catch (err) {
+                showMessage(document.getElementById('pharmacistMessage'), err.message || 'เกิดข้อผิดพลาด', 'error');
             } finally {
                 submitText.textContent = 'เพิ่มเภสัชกร';
                 loading.classList.add('hidden');
             }
         });
-        // ----- เพิ่มเวร -----
         document.getElementById('shiftForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('shiftName').value.trim();
             const abbrev = document.getElementById('shiftAbbrev').value.trim();
-            if (!name || !abbrev) {
-                showMessage(document.getElementById('shiftMessage'), 'กรุณากรอกชื่อเวรและตัวย่อ', 'error');
-                return;
-            }
             const submitText = document.getElementById('shiftSubmitText');
             const loading = document.getElementById('shiftLoading');
-            submitText.textContent = 'กำลังเพิ่ม...';
+            submitText.textContent = 'กำลังบันทึก...';
             loading.classList.remove('hidden');
             try {
-                const response = await fetch(CONFIG.SCRIPT_URL, {
+                const resp = await fetch(CONFIG.SCRIPT_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify({ action: 'addShift', name, abbrev })
                 });
-                const resJson = await response.json();
-                if (!response.ok || resJson.error || resJson.success === false) throw new Error(resJson.error || resJson.message || 'Network error');
-                shifts.push({ name, abbrev });
-                updateShiftSelects();
+                const j = await resp.json();
+                if (!j.success) throw new Error(j.message || 'เพิ่มเวรไม่สำเร็จ');
+                showMessage(document.getElementById('shiftMessage'), j.message || 'เพิ่มเวรสำเร็จ', 'success');
+                await loadShifts();
                 updateShiftsList();
-                showMessage(document.getElementById('shiftMessage'), resJson.message || 'เพิ่มเวรสำเร็จ!', 'success');
+                updateShiftSelects();
                 document.getElementById('shiftForm').reset();
-            } catch (error) {
-                console.error('Error adding shift:', error);
-                showMessage(document.getElementById('shiftMessage'), error.message || 'เกิดข้อผิดพลาดในการเพิ่มข้อมูล', 'error');
+            } catch (err) {
+                showMessage(document.getElementById('shiftMessage'), err.message || 'เกิดข้อผิดพลาด', 'error');
             } finally {
                 submitText.textContent = 'เพิ่มเวร';
                 loading.classList.add('hidden');
             }
         });
-        // ----- รายงาน -----
+        document.getElementById('scheduleForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pharmacistName = document.getElementById('pharmacistSelect').value;
+            const rows = document.querySelectorAll('#scheduleRows .schedule-row');
+            if (!pharmacistName || rows.length === 0) {
+                showMessage(document.getElementById('scheduleMessage'), 'กรุณาเลือกเภสัชกรและเพิ่มตารางเวร', 'error');
+                return;
+            }
+            const submitText = document.getElementById('scheduleSubmitText');
+            const loading = document.getElementById('scheduleLoading');
+            submitText.textContent = 'กำลังบันทึก...';
+            loading.classList.remove('hidden');
+            try {
+                for (let row of rows) {
+                    const dateInput = row.querySelector('input[name="workDate"]');
+                    const shiftSelect = row.querySelector('select[name="shift"]');
+                    if (!dateInput || !shiftSelect) continue;
+                    const workDate = dateInput.value;
+                    const shiftName = shiftSelect.value;
+                    if (!workDate || !shiftName) continue;
+                    // Save each schedule entry via Apps Script
+                    const resp = await fetch(CONFIG.SCRIPT_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({ action: 'addSchedule', pharmacist: pharmacistName, date: workDate, shift: shiftName, userId: currentUser.userId })
+                    });
+                    const j = await resp.json();
+                    if (!j.success) throw new Error(j.message || 'บันทึกตารางเวรไม่สำเร็จ');
+                }
+                showMessage(document.getElementById('scheduleMessage'), 'บันทึกตารางเวรทั้งหมดสำเร็จ', 'success');
+                // Reset form
+                scheduleRowCounter = 0;
+                document.getElementById('scheduleRows').innerHTML = '';
+                addScheduleRow();
+            } catch (err) {
+                showMessage(document.getElementById('scheduleMessage'), err.message || 'เกิดข้อผิดพลาด', 'error');
+            } finally {
+                submitText.textContent = 'บันทึกตารางเวรทั้งหมด';
+                loading.classList.add('hidden');
+            }
+        });
+        // --------- Report Generation ----------
         document.getElementById('generateReportBtn').addEventListener('click', async () => {
             const startDate = document.getElementById('reportStartDate').value;
             const endDate = document.getElementById('reportEndDate').value;
-            if (!startDate && !endDate) {
-                showMessage(document.getElementById('reportMessage'), 'กรุณาเลือกช่วงวันที่', 'error');
+            if (!startDate || !endDate) {
+                showMessage(document.getElementById('reportMessage'), 'กรุณาเลือกวันที่เริ่มต้นและสิ้นสุด', 'error');
                 return;
             }
             try {
                 const resp = await fetch(`${CONFIG.SCRIPT_URL}?action=getScheduleReport&startDate=${startDate}&endDate=${endDate}`);
                 const data = await resp.json();
+                if (!resp.ok || data.error) throw new Error(data.error || 'Error fetching report');
                 reportData = data.schedules || [];
-                displayReport(reportData);
-                renderStats(data);
-                document.getElementById('exportReportBtn').disabled = !(data && data.schedules && data.schedules.length);
-            } catch (error) {
-                console.error('Error generating report:', error);
-                showMessage(document.getElementById('reportMessage'), 'เกิดข้อผิดพลาดในการดึงรายงาน', 'error');
+                displayReportResults(reportData);
+                displayReportStats(startDate, endDate);
+                document.getElementById('exportReportBtn').disabled = reportData.length === 0;
+            } catch (err) {
+                console.error('Error generating report:', err);
+                showMessage(document.getElementById('reportMessage'), 'เกิดข้อผิดพลาดในการสร้างรายงาน', 'error');
             }
         });
-        function displayReport(data) {
-            const tbody = document.getElementById('reportTableBody');
-            const resultsDiv = document.getElementById('reportResults');
-            tbody.innerHTML = '';
-            if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-gray-500 py-8">ไม่พบข้อมูลในช่วงวันที่ที่เลือก</td></tr>';
-            } else {
-                data.forEach((item, index) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${index + 1}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.pharmacist}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.shift}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formatDateDMY(item.date)}</td>
-                    `;
-                    tbody.appendChild(row);
-                });
-            }
-            resultsDiv.classList.remove('hidden');
-        }
-        function renderStats(stats) {
-            const wrap = document.getElementById('statsSection');
-            const bodyPh = document.getElementById('statsPharmacistBody');
-            const bodySh = document.getElementById('statsShiftBody');
-            bodyPh.innerHTML = '';
-            bodySh.innerHTML = '';
-            (stats.pharmacists || []).forEach(p => {
-                const tr = document.createElement('tr');
-                const details = Object.keys(p.shifts || {}).map(k => `${k}: ${p.shifts[k]}`).join(' · ');
-                tr.innerHTML = `
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${p.pharmacist}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${p.total}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${details}</td>
-                `;
-                bodyPh.appendChild(tr);
-            });
-            (stats.shifts || []).forEach(s => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${s.shift}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${s.total}</td>
-                `;
-                bodySh.appendChild(tr);
-            });
-            wrap.classList.remove('hidden');
-        }
-        // ส่งออก Excel ผ่าน Apps Script (เปิดลิงก์ .xlsx)
         document.getElementById('exportReportBtn').addEventListener('click', async () => {
+            if (!reportData || reportData.length === 0) return;
             const startDate = document.getElementById('reportStartDate').value;
             const endDate = document.getElementById('reportEndDate').value;
-            if (reportData.length === 0) return;
             try {
-                const r = await fetch(`${CONFIG.SCRIPT_URL}?action=exportReportXlsx&startDate=${startDate}&endDate=${endDate}`);
-                const d = await r.json();
-                if (d?.success && d?.url) {
-                    window.open(d.url, '_blank');
-                    showMessage(document.getElementById('reportMessage'), 'ส่งออกไฟล์สำเร็จ!', 'success');
-                } else {
-                    throw new Error(d?.message || 'ไม่สามารถสร้างไฟล์ได้');
-                }
-            } catch (e) {
-                console.error(e);
-                showMessage(document.getElementById('reportMessage'), 'เกิดข้อผิดพลาดในการส่งออก Excel', 'error');
+                const resp = await fetch(`${CONFIG.SCRIPT_URL}?action=exportReportXlsx&startDate=${startDate}&endDate=${endDate}`);
+                const data = await resp.json();
+                if (!resp.ok || data.error || !data.url) throw new Error(data.error || 'Export failed');
+                window.open(data.url, '_blank');
+            } catch (err) {
+                console.error('Error exporting report:', err);
+                showMessage(document.getElementById('reportMessage'), 'เกิดข้อผิดพลาดในการส่งออกไฟล์', 'error');
             }
         });
-        // Date formatting dd/mm/yyyy
-        function formatDateDMY(dateInput) {
-            if (!dateInput) return '';
-            const d = new Date(dateInput);
-            if (isNaN(d)) return '';
-            const dd = String(d.getDate()).padStart(2,'0');
-            const mm = String(d.getMonth() + 1).padStart(2,'0');
-            const yyyy = d.getFullYear();
-            return `${dd}/${mm}/${yyyy}`;
+        function displayReportResults(list) {
+            const tbody = document.getElementById('reportTableBody');
+            tbody.innerHTML = '';
+            if (!list || list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-gray-500 py-8">ไม่พบข้อมูลในช่วงวันที่ที่เลือก</td></tr>';
+                document.getElementById('reportResults').classList.add('hidden');
+                document.getElementById('statsSection').classList.add('hidden');
+                return;
+            }
+            list.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${index + 1}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.pharmacist}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.shift}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formatDateDMY(item.date)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+            document.getElementById('reportResults').classList.remove('hidden');
+        }
+        function displayReportStats(startDate, endDate) {
+            const stats = calculateStats(reportData);
+            const phBody = document.getElementById('statsPharmacistBody');
+            const shiftBody = document.getElementById('statsShiftBody');
+            phBody.innerHTML = '';
+            shiftBody.innerHTML = '';
+            // Pharmacist stats
+            stats.pharmacists.forEach(item => {
+                const row = document.createElement('tr');
+                const shiftsDetail = Object.entries(item.shifts).map(([shift, count]) => `${shift} ${count} ครั้ง`).join(', ');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.pharmacist}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.total}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${shiftsDetail}</td>
+                `;
+                phBody.appendChild(row);
+            });
+            // Shift stats
+            stats.shifts.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.shift}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.total}</td>
+                `;
+                shiftBody.appendChild(row);
+            });
+            document.getElementById('statsSection').classList.remove('hidden');
+        }
+        function calculateStats(list) {
+            const byPh = {}, byShift = {};
+            list.forEach(x => {
+                const p = x.pharmacist || '', s = x.shift || '';
+                byPh[p] = byPh[p] || { pharmacist: p, total: 0, shifts: {} };
+                byPh[p].total += 1;
+                byPh[p].shifts[s] = (byPh[p].shifts[s] || 0) + 1;
+                byShift[s] = (byShift[s] || 0) + 1;
+            });
+            return {
+                startDate: document.getElementById('reportStartDate').value,
+                endDate: document.getElementById('reportEndDate').value,
+                pharmacists: Object.values(byPh).sort((a, b) => b.total - a.total),
+                shifts: Object.keys(byShift).map(k => ({ shift: k, total: byShift[k] })).sort((a, b) => b.total - a.total),
+                totalAssignments: list.length
+            };
+        }
+        function formatDateDMY(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            const ye = new Intl.DateTimeFormat('th', { year: 'numeric' }).format(d);
+            const mo = new Intl.DateTimeFormat('th', { month: 'short' }).format(d);
+            const da = new Intl.DateTimeFormat('th', { day: '2-digit' }).format(d);
+            return `${da} ${mo} ${ye}`;
         }
         function showMessage(element, message, type) {
             element.textContent = message;
@@ -838,7 +804,7 @@
         });
         function displayUserSchedules(data) {
             const tbody = document.getElementById('myDataTableBody');
-            const resultsDiv = document.getElementById('myDataResults');
+            const resultsDiv = document.getElementById('myScheduleTable');
             tbody.innerHTML = '';
             if (data.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="5" class="text-center text-gray-500 py-8">ไม่พบข้อมูลเวรของคุณในช่วงวันที่นี้</td></tr>';
@@ -864,6 +830,24 @@
             document.getElementById('reAuthMessage').classList.add('hidden');
             document.getElementById('reAuthUserId').focus();
         }
+        // Separate verification function for "แก้ไขข้อมูลของฉัน"
+        async function verifyUserForEdit(userId, password) {
+            // ใช้สำหรับตรวจสอบ UserID/Password เฉพาะการแก้ไขข้อมูลของฉัน (ไม่ใช้ localStorage, ไม่ redirect หน้า)
+            const resp = await fetch(CONFIG.SCRIPT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({ action: 'login', userId, password })
+            });
+            const result = await resp.json();
+            if (!result.success) {
+                throw new Error(result.message || 'ยืนยันตัวตนไม่สำเร็จ');
+            }
+            if (result.userId !== currentUser.userId) {
+                throw new Error('User ID หรือรหัสผ่านไม่ถูกต้อง');
+            }
+            // Verification successful
+            return true;
+        }
         document.getElementById('reAuthCancelBtn').addEventListener('click', () => {
             document.getElementById('reAuthModal').classList.add('hidden');
         });
@@ -876,18 +860,10 @@
             btnText.textContent = 'กำลังตรวจสอบ...';
             loading.classList.remove('hidden');
             try {
-                const resp = await fetch(CONFIG.SCRIPT_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ action: 'login', userId, password })
-                });
-                const j = await resp.json();
-                if (!j.success || j.userId !== currentUser.userId) {
-                    throw new Error('User ID หรือรหัสผ่านไม่ถูกต้อง');
-                }
+                await verifyUserForEdit(userId, password);
                 document.getElementById('reAuthModal').classList.add('hidden');
                 switchTab('mydata');
-                const dataResp = await fetch(`${CONFIG.SCRIPT_URL}?action=getUserSchedules&userId=${currentUser.userId}`);
+                const dataResp = await fetch(`${CONFIG.SCRIPT_URL}?action=getSchedulesByUser&userId=${currentUser.userId}`);
                 const data = await dataResp.json();
                 if (!dataResp.ok || data.error) throw new Error(data.error || 'Error loading data');
                 displayUserSchedules(data.schedules || []);
@@ -925,7 +901,7 @@
                     const reloadJson = await reloadResp.json();
                     newData = reloadJson.schedules || [];
                 } else {
-                    const reloadResp = await fetch(`${CONFIG.SCRIPT_URL}?action=getUserSchedules&userId=${currentUser.userId}`);
+                    const reloadResp = await fetch(`${CONFIG.SCRIPT_URL}?action=getSchedulesByUser&userId=${currentUser.userId}`);
                     const reloadJson = await reloadResp.json();
                     newData = reloadJson.schedules || [];
                 }
