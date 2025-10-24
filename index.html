@@ -28,7 +28,7 @@
         .schedule-row:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-thai">
+<body class="bg-gradient-to-br from-blue-50 to Indigo-100 min-h-screen font-thai">
     <!-- Login Page -->
     <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md fade-in">
@@ -86,18 +86,10 @@
         <div class="bg-white shadow-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav class="flex space-x-8">
-                    <button class="tab-btn active py-4 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600" data-tab="schedule">
-                        ลงตารางเวร
-                    </button>
-                    <button class="tab-btn py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="manage">
-                        จัดการข้อมูล
-                    </button>
-                    <button class="tab-btn py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="report">
-                        ดึงรายงาน
-                    </button>
-                    <button class="tab-btn py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="mydata">
-                        แก้ไขข้อมูลของฉัน
-                    </button>
+                    <button class="tab-btn active py-4 px-1 border-b-2 border-blue-500 font-medium text-sm text-blue-600" data-tab="schedule">ลงตารางเวร</button>
+                    <button class="tab-btn py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="manage">จัดการข้อมูล</button>
+                    <button class="tab-btn py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="report">ดึงรายงาน</button>
+                    <button class="tab-btn py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="mydata">แก้ไขข้อมูลของฉัน</button>
                 </nav>
             </div>
         </div>
@@ -317,9 +309,16 @@
                     แก้ไขข้อมูลของฉัน
                 </h2>
                 <div class="mb-4 flex items-end justify-between">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">เลือกวันที่</label>
-                        <input type="date" id="myDataDate" class="w-40 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <div class="flex items-end gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">วันที่เริ่มต้น</label>
+                            <input type="date" id="myDataStartDate" class="w-40 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">วันที่สิ้นสุด</label>
+                            <input type="date" id="myDataEndDate" class="w-40 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        </div>
+                        <button type="button" id="myDataFilterBtn" class="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">กรอง</button>
                     </div>
                     <button type="button" id="deleteSelectedBtn" class="bg-red-500 hover:bg-red-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">ลบรายการที่เลือก</button>
                 </div>
@@ -347,8 +346,8 @@
     <script>
         // ====== CONFIG ======
         const CONFIG = {
-            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxEaeAmWibb9ET1TIQdQgAl1iDAgRE9RFs_vgQHqgzZVxvGEdqdaN4LQZfNMV0FZFB0/exec',
-            SHEET_ID: '1Z2mKuXamqcHIM8f3bWInq6Q8upJz9EM-4ienVBWhT1s'
+            SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbxxBUL40G2sBcrmqHoAYzf2f7pjKP8N7Jc2IdUjsmtf9O9DHBxJpwts5i7r4Cp7Phrp/exec',  // *เปลี่ยน URL เป็นของคุณ*
+            SHEET_ID: '1Z2mKuXamqcHIM8f3bWInq6Q8upJz9EM-4ienVBWhT1s'  // *เปลี่ยน Sheet ID เป็นของคุณ*
         };
         // =====================
         // Global state
@@ -444,27 +443,27 @@
             rowDiv.className = 'schedule-row slide-in';
             rowDiv.id = `scheduleRow_${scheduleRowCounter}`;
             rowDiv.innerHTML = `
-                        <div class="flex justify-between items-center mb-4">
-                            <h4 class="text-lg font-semibold text-gray-800">ตารางเวรที่ ${scheduleRowCounter}</h4>
-                            ${scheduleRowCounter > 1 ? `<button type="button" onclick="removeScheduleRow(${scheduleRowCounter})" class="text-red-500 hover:text-red-700 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                </svg>
-                            </button>` : ''}
-                        </div>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">วันที่อยู่เวร</label>
-                                <input type="date" name="workDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">เลือกเวร</label>
-                                <select name="shift" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                                    <option value="">-- เลือกเวร --</option>
-                                </select>
-                            </div>
-                        </div>
-                    `;
+                <div class="flex justify-between items-center mb-4">
+                    <h4 class="text-lg font-semibold text-gray-800">ตารางเวรที่ ${scheduleRowCounter}</h4>
+                    ${scheduleRowCounter > 1 ? `<button type="button" onclick="removeScheduleRow(${scheduleRowCounter})" class="text-red-500 hover:text-red-700 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                    </button>` : ''}
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">วันที่อยู่เวร</label>
+                        <input type="date" name="workDate" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">เลือกเวร</label>
+                        <select name="shift" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                            <option value="">-- เลือกเวร --</option>
+                        </select>
+                    </div>
+                </div>
+            `;
             container.appendChild(rowDiv);
             updateShiftSelects();
         }
@@ -645,7 +644,7 @@
                 loading.classList.add('hidden');
             }
         });
-        // ----- เพิ่มเภสัชกร (ทุกคนที่ล็อกอินทำได้) -----
+        // ----- เพิ่มเภสัชกร -----
         document.getElementById('pharmacistForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('pharmacistName').value.trim();
@@ -680,7 +679,7 @@
                 loading.classList.add('hidden');
             }
         });
-        // ----- เพิ่มเวร (ทุกคนที่ล็อกอินทำได้) -----
+        // ----- เพิ่มเวร -----
         document.getElementById('shiftForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('shiftName').value.trim();
@@ -820,15 +819,18 @@
         document.getElementById('reportStartDate').value = today;
         document.getElementById('reportEndDate').value = today;
         // ----- แก้ไขข้อมูลของฉัน -----
-        document.getElementById('myDataDate').addEventListener('change', async () => {
-            const date = document.getElementById('myDataDate').value;
-            if (!date) return;
+        document.getElementById('myDataFilterBtn').addEventListener('click', async () => {
+            const start = document.getElementById('myDataStartDate').value;
+            const end = document.getElementById('myDataEndDate').value;
+            if (!start && !end) {
+                showMessage(document.getElementById('myDataMessage'), 'กรุณาเลือกช่วงวันที่', 'error');
+                return;
+            }
             try {
-                const resp = await fetch(`${CONFIG.SCRIPT_URL}?action=getUserSchedules&userId=${currentUser.userId}&date=${date}`);
+                const resp = await fetch(`${CONFIG.SCRIPT_URL}?action=getUserSchedulesRange&userId=${currentUser.userId}&startDate=${start}&endDate=${end}`);
                 const data = await resp.json();
                 if (!resp.ok || data.error) throw new Error(data.error || 'Error fetching data');
-                const schedules = data.schedules || [];
-                displayUserSchedules(schedules);
+                displayUserSchedules(data.schedules || []);
             } catch (err) {
                 console.error('Error loading user schedules:', err);
                 showMessage(document.getElementById('myDataMessage'), 'เกิดข้อผิดพลาดในการโหลดข้อมูล', 'error');
@@ -839,7 +841,7 @@
             const resultsDiv = document.getElementById('myDataResults');
             tbody.innerHTML = '';
             if (data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-gray-500 py-8">ไม่พบข้อมูลเวรของคุณในวันที่นี้</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-gray-500 py-8">ไม่พบข้อมูลเวรของคุณในช่วงวันที่นี้</td></tr>';
             } else {
                 data.forEach((item, index) => {
                     const row = document.createElement('tr');
@@ -852,7 +854,6 @@
                     `;
                     tbody.appendChild(row);
                 });
-                // Attach delete events (no per-row delete buttons in this version)
             }
             resultsDiv.classList.remove('hidden');
         }
@@ -916,10 +917,11 @@
                     throw new Error(resJson.error || resJson.message || 'Network error');
                 }
                 showMessage(document.getElementById('myDataMessage'), resJson.message || 'ลบข้อมูลเวรสำเร็จ!', 'success');
-                const currentDate = document.getElementById('myDataDate').value;
+                const startDate = document.getElementById('myDataStartDate').value;
+                const endDate = document.getElementById('myDataEndDate').value;
                 let newData = [];
-                if (currentDate) {
-                    const reloadResp = await fetch(`${CONFIG.SCRIPT_URL}?action=getUserSchedules&userId=${currentUser.userId}&date=${currentDate}`);
+                if (startDate || endDate) {
+                    const reloadResp = await fetch(`${CONFIG.SCRIPT_URL}?action=getUserSchedulesRange&userId=${currentUser.userId}&startDate=${startDate}&endDate=${endDate}`);
                     const reloadJson = await reloadResp.json();
                     newData = reloadJson.schedules || [];
                 } else {
